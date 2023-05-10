@@ -9,7 +9,7 @@ A linear logistic regression model from the SKLearn library was instantiated, th
 
 ## Results
 
-* Machine Learning Model 1 (original data):
+* **Machine Learning Model 1 (original data)**:
   * overall accuracy score = 99%
 
 * Performance of model predicting healthy loans (‘0’)
@@ -24,7 +24,7 @@ A linear logistic regression model from the SKLearn library was instantiated, th
 	* f1-score = 88%
 	* sample size = 619
 
-* Machine Learning Model 2 (RandomOverSampler):
+* **Machine Learning Model 2 (RandomOverSampler):**
   * overall accuracy score = 99%
 * Performance of model predicting healthy loans (‘0’)
 	* precision = 100%
