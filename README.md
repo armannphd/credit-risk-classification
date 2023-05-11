@@ -2,16 +2,16 @@
 
 ## Overview of the Analysis
 
-This analysis, conducted using Python, looks at a total of 77,536 loans and data related to each loan to construct a computational model that may be used to predict the likelihood of whether a loan is healthy or has a high risk of defaulting.  A total of seven factors were considered when constructing this prediction model: (1) loan amount, (2) interest rate, (3) borrower’s income, (4) borrower’s debt to income ratio, (5) number of accounts the borrower had at the time of the loan, (6) the number of derogatory marks on the borrower’s loan report, (7) borrower’s total debt.
+This analysis, conducted using Python, looks at data from 77,536 loans and constructs a prediction model determining the likelihood a loan will be healthy or one of high-risk and close to defaulting.  A total of seven factors were considered: (1) loan amount, (2) interest rate, (3) borrower’s income, (4) borrower’s debt to income ratio, (5) number of accounts under borrower's name at the time of the loan, (6) number of derogatory marks on the borrower’s loan report, and (7) borrower’s total debt.
 
-A linear logistic regression model from the SKLearn library was instantiated, the original data was split (75% went to training, 25% went to testing) and the model was trained with the training set.  The testing set was then used to assess the accuracy of the model at predicting healthy versus high-risk loans.  A second analysis was done using the imbalanced-learn library to assess the effects of the imbalance within the original dataset (2,500 high-risk loans versus 75,036 healthy loans).
+A linear logistic regression model from the SKLearn library was instantiated, the original data was split (75% went to training, 25% went to testing), and the model was trained and tested to assess its accuracy at predicting healthy versus high-risk loans.  Additionally, a second prediction model using the imbalanced-learn library's RandomOverSampler module was constructed to assess the effects of the inherent lopsidedness within the original dataset (2,500 high-risk loans versus 75,036 healthy loans).
 
 
 ## Results
 
  ### **Machine Learning Model 1 (original data)**:
   * overall accuracy score = 99%
-  * overal balance accuracy score = 95% (difference in value indicative of varying sample sizes)
+  * overall balanced accuracy score = 95% (difference from overall accuracy score indicative of varying sample sizes)
 
 * Performance of model predicting healthy loans (‘0’)
 	* precision = 100%
@@ -27,7 +27,7 @@ A linear logistic regression model from the SKLearn library was instantiated, th
 
 ### **Machine Learning Model 2 (RandomOverSampler):**
   * overall accuracy score = 99%
-  * overal balance accuracy score = 99%
+  * overall balanced accuracy score = 99%
   
 * Performance of model predicting healthy loans (‘0’)
 	* precision = 100%
@@ -43,6 +43,6 @@ A linear logistic regression model from the SKLearn library was instantiated, th
 
 ## Summary
 
-The logistic regression model using the original data had an overall balanced accuracy score of 95% at prediciting whether a loan would eventually be considered healthy or high-risk.  Despite the high score, this model predicted healthy loans with a false positivity rate (FPR) of 0.5% but had a 9% FPR when predicting high-risk loans.  The ramifications of erroneously predicting nearly one out of ten high-risk loans as healthy can have substantial negative effects to the lender.   Given the imbalance of healthy loans versus high-risk loans in constructing the prediction model, unnecessary bias towards the majority class (healthy loans) may occur, thus, the RandomOverSampler was implemented to observe if this bias has an impact on the model.
+The logistic regression model using the original data had an overall balanced accuracy score of 95%  prediciting a loan's fate as either healthy or high-risk.  Although prediction of healthy loans had a false positivity rate (FPR) of 0.5%, a 9% FPR occurred when predicting high-risk loans (refer to the comments within the code to see how FPR was calculated).  The ramifications of mispredicting nearly one out of ten high-risk loans as healthy may potentially lead to considerable negative effects for the lender.   Given the imbalance of healthy loans versus high-risk loans in constructing the prediction model, however, unfairness may occur, thus, the RandomOverSampler module was implemented to observe the consequence of this potential bias.
 
-Using the RandomOverSampler, the FPR was maintained at 0.5% for healthy loan prediction but was dramatically reduced from 9% to 0.5% for high-risk loans.  From the lender’s perspective, predicting a high-risk loan from just 7 metrics with over 99% precision would be beneficial and may minimize the risk of predicting high-risk loans as healthy.  However, the RandomOverSampler primarily illustrates that bias is present in the construction of Machine Learning Model 1 (model based solely on original data).  The RandomOverSampler is purely speculative and is based on previous data and does not introduce new data.  In fact, the RandomOverSampler may just repeat previous data points in order to establish a sample size more aligned to that of the majority class (the healthy loans).  So while it does show that the RandomOverSampler model is more precise at predicting high-risk loans, it cannot replace real world data.  Ideally, more real world data regarding high-risk loans should be sought to correct for the data imbalance to ultimately validate the prediction model. But in the absence of new data, one, the RandomOverSampler may be used but should be done knowing its inherent caveats, two, other models such as constructing a prediction model that under-samples the healthy loans to balance the dataset may be used in conjunction to glean more insight into the prediction models. 
+Using the RandomOverSampler, the FPR was maintained at 0.5% for healthy loan prediction but was 0.5% for high-risk loans, a sizeable decrease from the previous 9%.  From the lender’s perspective, predicting a high-risk loan from just 7 metrics with over 99% precision would be beneficial and minimizes the instances of predicting high-risk loans as healthy.  However, the RandomOverSampler primarily illustrates that bias is present in the construction of Machine Learning Model 1 (model based solely on original data).  The RandomOverSampler is speculative as it is based on previous data and not real or new data.  In fact, the RandomOverSampler may just repeat previous data points in order to establish a sample size more aligned to that of the majority class (the healthy loans).  So while the RandomOverSampler model is more precise at predicting high-risk loans, it should be understood that this model is not based on real world data.  Ideally, more real world data regarding high-risk loans should be used to correct for the data imbalance ultimately leading to validation of the prediction model. But in the absence of new data, one, the RandomOverSampler may be used but should be done knowing its inherent caveats, two, other models such as constructing a prediction model that under-samples the healthy loans to balance the dataset should be used in conjunction to lend further creedence and to glean more insight into the efficacy of the prediction model. 
